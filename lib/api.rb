@@ -12,24 +12,17 @@ class API
         uri = URI(url)
         response = Net::HTTP.get(uri)
         hash = JSON.parse(response)
-        array_of_drinks = hash["drinks"]
-
+        #binding.pry
+        array_of_drinks = hash["drinks"]  #array
 
         array_of_drinks.each do |drink_hash|
             # initialize a new drink
-            drink_instance = Drink.new
+            drink_instance = Drink.new(id: drink_hash["idDrink"], name: drink_hash["strDrink"])
             # assign attributes to it
-            drink_instance.id = drink_hash["idDrink"]
-            drink_instance.name = drink_hash["strDrink"]
             drink_instance.instructions = drink_hash["strInstructions"]
             drink_instance.glass = drink_hash["strGlass"]
             drink_instance.category = drink_hash["strCategory"]
         end
-
-        binding.pry
-
-
-
 
     end
 end
